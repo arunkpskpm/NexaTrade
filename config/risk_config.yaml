@@ -1,0 +1,50 @@
+# ──────────────────────────────────────────────────────────────
+# NexaTrade — Risk Configuration
+# All risk limits, checks, and controls are defined here.
+# Tune per-environment. Kill switch overrides everything.
+# ──────────────────────────────────────────────────────────────
+
+# ── Loss Limits ─────────────────────────────────────────────
+loss_limits:
+  daily_loss_limit: 10000.0         # INR — arms kill switch on breach
+  weekly_loss_limit: 25000.0        # INR — warning only
+  monthly_loss_limit: 75000.0       # INR — warning only
+  max_drawdown_pct: 5.0             # % of capital — blocks new entries
+
+# ── Capital Allocation ──────────────────────────────────────
+capital:
+  total_capital: 1000000.0          # INR — used for per-trade % calc
+  max_capital_per_trade_pct: 10.0   # Max % of capital in a single order
+  max_total_exposure_pct: 80.0      # Max % of capital deployed at once
+  min_cash_buffer_pct: 20.0         # Min % cash to always maintain
+
+# ── Position Limits ─────────────────────────────────────────
+position_limits:
+  max_open_positions: 10            # Max concurrent open positions
+  max_position_size: 500            # Max units per position
+  max_positions_per_symbol: 1       # No pyramiding by default
+  min_position_size: 1              # Minimum order quantity
+
+# ── Order Limits ────────────────────────────────────────────
+order_limits:
+  max_orders_per_minute: 10         # Rate limit
+  max_orders_per_day: 200           # Daily order cap
+  order_timeout_seconds: 30         # Cancel if not filled within
+
+# ── Blacklist ────────────────────────────────────────────────
+blacklist:
+  symbols: []                       # Add symbols to block e.g. ["YESBANK"]
+  exchanges: []                     # Add exchanges to block e.g. ["MCX"]
+
+# ── Kill Switch ─────────────────────────────────────────────
+kill_switch:
+  auto_arm_on_daily_loss: true      # Auto-arm on daily_loss_limit breach
+  auto_arm_on_drawdown: true        # Auto-arm on max_drawdown_pct breach
+  disarm_requires_manual: true      # Must be manually disarmed via API
+
+# ── Paper Trading Overrides ──────────────────────────────────
+paper:
+  daily_loss_limit: 50000.0         # Higher limit for paper testing
+  max_open_positions: 20
+  max_position_size: 1000
+  max_capital_per_trade_pct: 20.0

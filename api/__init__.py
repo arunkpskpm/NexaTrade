@@ -1,0 +1,3 @@
+"""
+NexaTrade — API package.
+"""

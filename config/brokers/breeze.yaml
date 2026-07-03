@@ -1,0 +1,85 @@
+# ──────────────────────────────────────────────────────────────
+# NexaTrade — Breeze Connect (ICICI Direct) Configuration
+# Non-secret broker configuration.
+# Credentials are loaded from environment variables only.
+# ──────────────────────────────────────────────────────────────
+
+broker:
+  name: "breeze"
+  display_name: "ICICI Direct — Breeze Connect"
+  version: "1.0.0"
+
+  # ── Exchange code translations ────────────────────────────
+  # NexaTrade enum → Breeze SDK exchange_code param
+  exchange_map:
+    NSE: "NSE"
+    BSE: "BSE"
+    NFO: "NFO"
+    MCX: "MCX"
+    BFO: "BFO"
+
+  # ── Order type translations ───────────────────────────────
+  # NexaTrade enum → Breeze SDK order_type param
+  order_type_map:
+    MARKET:           "market"
+    LIMIT:            "limit"
+    STOP_LOSS:        "stoploss"
+    STOP_LOSS_MARKET: "stoploss-market"
+
+  # ── Transaction type translations ─────────────────────────
+  transaction_type_map:
+    BUY:  "buy"
+    SELL: "sell"
+
+  # ── Product type translations ─────────────────────────────
+  product_type_map:
+    DELIVERY: "cash"
+    INTRADAY: "margin"
+    FUTURES:  "futures"
+    OPTIONS:  "options"
+
+  # ── Candle interval translations ──────────────────────────
+  # NexaTrade interval string → Breeze SDK interval param
+  interval_map:
+    "1minute":  "1minute"
+    "5minute":  "5minute"
+    "15minute": "15minute"
+    "30minute": "30minute"
+    "1hour":    "1hour"
+    "1day":     "1day"
+
+  # ── Historical data limits ────────────────────────────────
+  # Max calendar days Breeze allows per API request per interval
+  historical:
+    max_days_per_request:
+      "1minute":  30
+      "5minute":  60
+      "15minute": 90
+      "30minute": 180
+      "1hour":    365
+      "1day":     1825     # 5 years
+
+  # ── WebSocket configuration ───────────────────────────────
+  websocket:
+    max_subscriptions: 50
+    reconnect_delay_seconds: 3
+    heartbeat_interval_seconds: 15
+
+  # ── Supported segments ────────────────────────────────────
+  supported_segments:
+    - "EQ"
+    - "FUT"
+    - "OPT"
+    - "COM"
+
+  # ── Order validity ────────────────────────────────────────
+  order_validity:
+    default: "day"
+    options: ["day", "ioc"]
+
+  # ── Instrument right codes ────────────────────────────────
+  right_codes:
+    EQ:  "others"
+    FUT: "others"
+    CE:  "call"
+    PE:  "put"
